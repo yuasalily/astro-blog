@@ -14,4 +14,8 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<GlobalLayout title={entry.data.title}><Content /></GlobalLayout>
+<GlobalLayout title={entry.data.title}>
+  <div class="flex justify-center w-1/2">
+    <article class="prose"><Content /></article>
+  </div>
+</GlobalLayout>
