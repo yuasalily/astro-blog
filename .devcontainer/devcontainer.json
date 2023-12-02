@@ -9,7 +9,8 @@
         "astro-build.astro-vscode",
         "dbaeumer.vscode-eslint",
         "stylelint.vscode-stylelint",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss"
       ],
       "settings": {
         "files.autoSave": "onFocusChange",
@@ -26,6 +27,9 @@
         "workbench.tree.renderIndentGuides": "always",
         "editor.codeActionsOnSave": {
           "source.organizeImports": true
+        },
+        "editor.quickSuggestions": {
+          "strings": true
         },
         "dotfiles.repository": "https://github.com/yuasalily/dotfiles.git",
         "dotfiles.targetPath": "~/dotfiles"
