@@ -1,0 +1,20 @@
+---
+interface LinkFactor {
+  title: string;
+  link: string;
+}
+interface Props {
+  links: LinkFactor[];
+}
+const { links } = Astro.props;
+---
+
+<ul>
+  {
+    links.map((linkFactor, _) => (
+      <li>
+        <a href={linkFactor.link}>{linkFactor.title}</a>
+      </li>
+    ))
+  }
+</ul>
