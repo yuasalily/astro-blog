@@ -1,0 +1,97 @@
+---
+import Sample from "../../components/tailwind/Sample.astro";
+import GlobalLayout from "../../layouts/GlobalLayout.astro";
+---
+
+<GlobalLayout title="サンプル集">
+  <h1 class="text-3xl">tailwindのサンプル集</h1>
+  <p>tailwindでよく使いそうな機能を列挙する</p>
+  <Sample>
+    <h1>文字サイズ</h1>
+    <div class="text-xl">text-xl</div>
+    <a href="https://tailwindcss.com/docs/font-size">公式ページ</a>
+  </Sample>
+
+  <Sample>
+    <h1>文字の太さ</h1>
+    <div class="font-bold">font-bold</div>
+    <a href="https://tailwindcss.com/docs/font-weight">公式ページ</a>
+  </Sample>
+
+  <Sample>
+    <h1>パディング</h1>
+    <div class="px-4 py-4">パディング</div>
+    <a href="https://tailwindcss.com/docs/padding">公式ページ</a>
+  </Sample>
+
+  <Sample>
+    <h1>レスポンシブデザイン</h1>
+    <div class="text-black sm:text-red-500 lg:text-blue-500">レスポンシブ</div>
+    <a href="https://tailwindcss.com/docs/responsive-design">公式ページ</a>
+  </Sample>
+
+  <Sample>
+    <h1>カスタマイズデザイン</h1>
+    <div class="text-mycolor-100">カスタマイズデザイン</div>
+    <p>tailwind.config.mjsのextendsに追記する</p>
+    <a href="https://tailwindcss.com/docs/configuration">公式ページ</a>
+  </Sample>
+
+  <Sample>
+    <h1>フォント変更</h1>
+    <div class="font-hachimaru">Hachi Maru Pop Font</div>
+    <p>google fontsからフォントを選択</p>
+    <p>select...でlinkを作成してheadに追記</p>
+    <p>
+      CSS rules to specify
+      familiesをコピーしてtailwind.config.mjsのfontFamilyに追記する(keyは自由、valueはCSS
+      rules...のもの)
+    </p>
+  </Sample>
+
+  <Sample>
+    <h1>container</h1>
+    <a href="https://tailwindcss.com/docs/container">公式ページ</a>
+  </Sample>
+
+  <Sample>
+    <h1>flex</h1>
+    <p>justify...も</p>
+    <p>flex-wrapも</p>
+    <a href="https://tailwindcss.com/docs/flex">公式ページ</a>
+  </Sample>
+
+  <Sample>
+    <h1>スペース</h1>
+    <a href="https://tailwindcss.com/docs/space">公式ページ</a>
+  </Sample>
+  <Sample>
+    <h1>transition</h1>
+    <a href="https://tailwindcss.com/docs/transition-property">公式ページ</a>
+  </Sample>
+
+  <Sample>
+    <h1>画面サイズによって表示を変える</h1>
+    <div class="md:hidden">
+      <i class="fa-solid fa-burger"></i>
+    </div>
+    <div class="hidden md:block lg:hidden">
+      <i class="fa-solid fa-bowl-food"></i>
+    </div>
+    <div class="hidden lg:flex">画面を小さくすると食べ物が表示されるよ</div>
+    <p>
+      補足:ここで使っているアイコンはcdnjsでfont-awesomeを探してheadに貼り付け。使い方はfont-awesome内で検索
+    </p>
+  </Sample>
+  <Sample>
+    <h1>grid</h1>
+  </Sample>
+
+  <Sample>
+    <h1>object-cover</h1>
+  </Sample>
+
+  <Sample>
+    <h1>cursor</h1>
+  </Sample>
+</GlobalLayout>
