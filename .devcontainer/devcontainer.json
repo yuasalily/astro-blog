@@ -10,7 +10,8 @@
         "dbaeumer.vscode-eslint",
         "stylelint.vscode-stylelint",
         "esbenp.prettier-vscode",
-        "bradlc.vscode-tailwindcss"
+        "bradlc.vscode-tailwindcss",
+        "biomejs.biome"
       ],
       "settings": {
         "files.autoSave": "onFocusChange",
@@ -26,10 +27,14 @@
         "workbench.editor.enablePreviewFromQuickOpen": false,
         "workbench.tree.renderIndentGuides": "always",
         "editor.codeActionsOnSave": {
-          "source.organizeImports": true
+          "source.organizeImports": true,
+          "quickfix.biome": true
         },
         "editor.quickSuggestions": {
           "strings": true
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "biomejs.biome"
         },
         "dotfiles.repository": "https://github.com/yuasalily/dotfiles.git",
         "dotfiles.targetPath": "~/dotfiles"
