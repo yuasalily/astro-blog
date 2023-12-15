@@ -1,6 +1,6 @@
 ---
+import GlobalLayout from "@layouts/GlobalLayout.astro";
 import { getCollection } from "astro:content";
-import GlobalLayout from "../layouts/GlobalLayout.astro";
 const allPosts = await getCollection("blog");
 ---
 
