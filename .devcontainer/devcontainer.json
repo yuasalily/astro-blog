@@ -36,6 +36,15 @@
         "[javascript]": {
           "editor.defaultFormatter": "biomejs.biome"
         },
+        "[javascriptreact]": {
+          "editor.defaultFormatter": "biomejs.biome"
+        },
+        "[typescript]": {
+          "editor.defaultFormatter": "biomejs.biome"
+        },
+        "[typescriptreact]": {
+          "editor.defaultFormatter": "biomejs.biome"
+        },
         "dotfiles.repository": "https://github.com/yuasalily/dotfiles.git",
         "dotfiles.targetPath": "~/dotfiles"
       }
