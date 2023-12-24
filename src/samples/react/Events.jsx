@@ -13,7 +13,7 @@ const Events = () => {
 			/>
 			<div
 				onMouseEnter={() => setState("カーソルが入りました!(^^)!")}
-				onMouseLeave={() => setState("カーソルが入りました( ;∀;)")}
+				onMouseLeave={() => setState("カーソルが出ました( ;∀;)")}
 			>
 				ホバーしてね
 			</div>
