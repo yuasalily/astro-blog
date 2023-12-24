@@ -1,8 +1,26 @@
 ---
 import GlobalLayout from "@layouts/GlobalLayout.astro";
+import ArgProps from "@samples/react/ArgProps";
+import Events from "@samples/react/Events";
 import Example from "@samples/react/Example";
+import ManageList from "@samples/react/ManageList";
+import ManageState from "@samples/react/ManageState";
+import UpdateState from "@samples/react/UpdateState";
+const spreadObj = { color: "blue", num: 123 };
 ---
 
 <GlobalLayout>
-  <Example client:load />
+  <h1 class="text-xl">props</h1>
+  <ArgProps
+    {...spreadObj}
+    fn={(title: string) => title + "Sample"}
+    bool
+    obj={{ name: "tanaka", age: 20 }}
+  >
+    <Example client:load />
+  </ArgProps>
+  <Events client:load />
+  <UpdateState client:load />
+  <ManageState client:load />
+  <ManageList client:load />
 </GlobalLayout>
