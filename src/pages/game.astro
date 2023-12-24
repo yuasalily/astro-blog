@@ -1,0 +1,13 @@
+---
+import ListLinks from "@components/ListLinks.astro";
+import GlobalLayout from "@layouts/GlobalLayout.astro";
+
+const here = "/game/";
+
+const links = [{ title: "othello", link: here + "othello" }];
+---
+
+<GlobalLayout title="サンプル集">
+  <h1>サンプル置き場</h1>
+  <ListLinks links={links} />
+</GlobalLayout>
