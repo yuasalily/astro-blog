@@ -1,13 +1,14 @@
-import { getSettings, getSquareState } from "@components/othello/GameSettings";
+import { getSettings, getSquareState, type SquareStateType } from "@components/othello/GameSettings";
 import Square from "@components/othello/Square";
-import { LegalSquare } from "@components/othello/utils";
+import { LegalSquare, getNextPlayer } from "@components/othello/utils";
 import React, { useEffect, useState } from "react";
 
 const GameBoard: React.FC = () => {
 	const [loaded, setLoaded] = useState(false);
+	const [currentTurn, setCurrentTurn] = useState(1);
 	const settings = getSettings();
 	const SquareState = getSquareState();
-	const [gameBoard, setGameBoard] = useState<number[]>(
+	const [gameBoard, setGameBoard] = useState<SquareStateType[]>(
 		Array(settings.height * settings.width).fill(SquareState.Empty),
 	);
 
@@ -16,7 +17,7 @@ const GameBoard: React.FC = () => {
 		if (loaded) {
 			return;
 		}
-		const _gameBoard: number[] = Array(settings.height * settings.width).fill(
+		const _gameBoard: SquareStateType[] = Array(settings.height * settings.width).fill(
 			SquareState.Empty,
 		);
 		_gameBoard[27] = SquareState.Hamburger;
@@ -41,9 +42,10 @@ const GameBoard: React.FC = () => {
 					setSquare={() => {
 						setGameBoard((prev) => {
 							const newGameBoard = [...prev];
-							newGameBoard[i] = SquareState.Pizza;
+							newGameBoard[i] = getNextPlayer(currentTurn);
 							return newGameBoard;
 						});
+						setCurrentTurn(prev => prev + 1);
 					}}
 				/>
 			))}

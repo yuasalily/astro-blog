@@ -1,3 +1,5 @@
+import { getSquareState } from '@components/othello/GameSettings';
+
 const State = {
 	Available: "0",
 	Player: "1",
@@ -68,4 +70,10 @@ class LegalSquare {
 	}
 }
 
-export { LegalSquare };
+const getNextPlayer = (turn: number) => {
+	const SquareState = getSquareState()
+	if (turn % 2 === 0) return SquareState.Hamburger;
+	else return SquareState.Pizza;
+}
+
+export { LegalSquare, getNextPlayer };
