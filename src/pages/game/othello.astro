@@ -1,5 +1,6 @@
 ---
+import GameBoard from "@components/othello/GameBoard";
 import GlobalLayout from "@layouts/GlobalLayout.astro";
 ---
 
-<GlobalLayout title="サンプル集">Othello Here!!</GlobalLayout>
+<GlobalLayout title="サンプル集"><GameBoard client:load /></GlobalLayout>
