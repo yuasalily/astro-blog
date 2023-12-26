@@ -119,10 +119,10 @@ const checkGame = (bitBoard1: bigint, bitBoard2: bigint): boolean => {
 	return false;
 };
 
-const popCount = (bitBoard: bigint): bigint => {
-	let count = 0n;
+const popCount = (bitBoard: bigint): number => {
+	let count = 0;
 	for (let i = 0n; i < 64n; i++) {
-		count += (bitBoard >> i) & 1n;
+		count += Number((bitBoard >> i) & 1n);
 	}
 	return count;
 };
@@ -132,9 +132,10 @@ const isPizzaTurn = (turn: number): boolean => {
 };
 
 export {
+	checkGame,
 	getSquareIndexBit,
+	isPizzaTurn,
 	makeLegalBoard,
 	makeReversedBoard,
-	checkGame,
-	isPizzaTurn,
+	popCount,
 };
