@@ -5,7 +5,10 @@ const initialPizzaBoard =
 const initialHamburgerBoard =
 	0b00000000_00000000_00000000_00010000_00001000_00000000_00000000_00000000n;
 
-const PizzaBoardContext = createContext<bigint>(initialPizzaBoard);
+const initialRevenue = 1000;
+const initialAsset = 10000;
+
+const PizzaBoardContext = createContext(initialPizzaBoard);
 const PizzaBoardDispatchContext = createContext(() => {});
 
 const HamburgerBoardContext = createContext(initialHamburgerBoard);
@@ -13,6 +16,18 @@ const HamburgerBoardDispatchContext = createContext(() => {});
 
 const TurnContext = createContext(0);
 const TurnDispatchContext = createContext(() => {});
+
+const PizzaRevenueContext = createContext(initialRevenue);
+const PizzaRevenueDispatchContext = createContext(() => {});
+
+const HamburgerRevenueContext = createContext(initialRevenue);
+const HamburgerRevenueDispatchContext = createContext(() => {});
+
+const PizzaAssetContext = createContext(initialAsset);
+const PizzaAssetDispatchContext = createContext(() => {});
+
+const HamburgerAssetContext = createContext(initialAsset);
+const HamburgerAssetDispatchContext = createContext(() => {});
 
 const BoardProvider = ({ children }: { children: ReactNode }) => {
 	const [pizzaBoard, pizzaBoardDispatch] = useReducer(
@@ -51,6 +66,58 @@ const BoardProvider = ({ children }: { children: ReactNode }) => {
 				throw new Error("invalid turn action");
 		}
 	}, 0);
+	const [pizzaRevenue, pizzaRevenueDispatch] = useReducer(
+		(prev: number, { type, payload }: { type: string; payload: number }) => {
+			switch (type) {
+				case "initialize":
+					return initialRevenue;
+				case "update":
+					return prev + payload;
+				default:
+					throw new Error("invalid revenue action");
+			}
+		},
+		initialRevenue,
+	);
+	const [hamburgerRevenue, hamburgerRevenueDispatch] = useReducer(
+		(prev: number, { type, payload }: { type: string; payload: number }) => {
+			switch (type) {
+				case "initialize":
+					return initialRevenue;
+				case "update":
+					return prev + payload;
+				default:
+					throw new Error("invalid revenue action");
+			}
+		},
+		initialRevenue,
+	);
+	const [pizzaAsset, pizzaAssetDispatch] = useReducer(
+		(prev: number, { type, payload }: { type: string; payload: number }) => {
+			switch (type) {
+				case "initialize":
+					return initialAsset;
+				case "update":
+					return prev + payload;
+				default:
+					throw new Error("invalid asset action");
+			}
+		},
+		initialAsset,
+	);
+	const [hamburgerAsset, hamburgerAssetDispatch] = useReducer(
+		(prev: number, { type, payload }: { type: string; payload: number }) => {
+			switch (type) {
+				case "initialize":
+					return initialAsset;
+				case "update":
+					return prev + payload;
+				default:
+					throw new Error("invalid asset action");
+			}
+		},
+		initialAsset,
+	);
 	return (
 		<PizzaBoardContext.Provider value={pizzaBoard}>
 			<PizzaBoardDispatchContext.Provider value={pizzaBoardDispatch}>
@@ -60,7 +127,33 @@ const BoardProvider = ({ children }: { children: ReactNode }) => {
 					>
 						<TurnContext.Provider value={turn}>
 							<TurnDispatchContext.Provider value={turnDispatch}>
-								{children}
+								<PizzaRevenueContext.Provider value={pizzaRevenue}>
+									<PizzaRevenueDispatchContext.Provider
+										value={pizzaRevenueDispatch}
+									>
+										<HamburgerRevenueContext.Provider value={hamburgerRevenue}>
+											<HamburgerRevenueDispatchContext.Provider
+												value={hamburgerRevenueDispatch}
+											>
+												<PizzaAssetContext.Provider value={pizzaAsset}>
+													<PizzaAssetDispatchContext.Provider
+														value={pizzaAssetDispatch}
+													>
+														<HamburgerAssetContext.Provider
+															value={hamburgerAsset}
+														>
+															<HamburgerAssetDispatchContext.Provider
+																value={hamburgerAssetDispatch}
+															>
+																{children}
+															</HamburgerAssetDispatchContext.Provider>
+														</HamburgerAssetContext.Provider>
+													</PizzaAssetDispatchContext.Provider>
+												</PizzaAssetContext.Provider>
+											</HamburgerRevenueDispatchContext.Provider>
+										</HamburgerRevenueContext.Provider>
+									</PizzaRevenueDispatchContext.Provider>
+								</PizzaRevenueContext.Provider>
 							</TurnDispatchContext.Provider>
 						</TurnContext.Provider>
 					</HamburgerBoardDispatchContext.Provider>
@@ -80,12 +173,34 @@ const useHamburgerBoardDispatch = () =>
 const useTurn = () => useContext(TurnContext);
 const useTurnDispatch = () => useContext(TurnDispatchContext);
 
+const usePizzaRevenue = () => useContext(PizzaRevenueContext);
+const usePizzaRevenueDispatch = () => useContext(PizzaRevenueDispatchContext);
+
+const useHamburgerRevenue = () => useContext(HamburgerRevenueContext);
+const useHamburgerRevenueDispatch = () =>
+	useContext(HamburgerRevenueDispatchContext);
+
+const usePizzaAsset = () => useContext(PizzaAssetContext);
+const usePizzaAssetDispatch = () => useContext(PizzaAssetDispatchContext);
+
+const useHamburgerAsset = () => useContext(HamburgerAssetContext);
+const useHamburgerAssetDispatch = () =>
+	useContext(HamburgerAssetDispatchContext);
+
 export {
 	BoardProvider,
+	useHamburgerAsset,
+	useHamburgerAssetDispatch,
 	useHamburgerBoard,
 	useHamburgerBoardDispatch,
+	useHamburgerRevenue,
+	useHamburgerRevenueDispatch,
+	usePizzaAsset,
+	usePizzaAssetDispatch,
 	usePizzaBoard,
 	usePizzaBoardDispatch,
+	usePizzaRevenue,
+	usePizzaRevenueDispatch,
 	useTurn,
 	useTurnDispatch,
 };

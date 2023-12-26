@@ -131,6 +131,9 @@ const isPizzaTurn = (turn: number): boolean => {
 	return turn % 2 === 0;
 };
 
+const calculateScore = (numStore: number, revenue: number, asset: number) =>
+	numStore * revenue + asset;
+
 export {
 	checkGame,
 	getSquareIndexBit,
@@ -138,4 +141,5 @@ export {
 	makeLegalBoard,
 	makeReversedBoard,
 	popCount,
+	calculateScore,
 };
