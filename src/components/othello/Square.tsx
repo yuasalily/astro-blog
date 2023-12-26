@@ -12,6 +12,8 @@ import {
 	makeReversedBoard,
 } from "@components/othello/utils";
 
+import { HamburgerIcon, LegalIcon, PizzaIcon } from "@components/othello/Icons";
+
 const Square = ({
 	isPizza,
 	isHamburger,
@@ -51,13 +53,13 @@ const Square = ({
 	};
 	let icon = null;
 	if (isPizza) {
-		icon = <i className="fa-solid fa-pizza-slice text-xl text-yellow-900" />;
+		icon = <PizzaIcon fontSize={"text-xl"} />;
 	}
 	if (isHamburger) {
-		icon = <i className="fa-solid fa-burger text-xl text-red-900" />;
+		icon = <HamburgerIcon fontSize={"text-xl"} />;
 	}
 	if (isLegal) {
-		icon = <i className="fa-solid fa-person-digging text-xl text-gray-500" />;
+		icon = <LegalIcon fontSize={"text-xl"} />;
 	}
 	return (
 		<div
