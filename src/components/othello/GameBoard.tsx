@@ -7,6 +7,7 @@ import {
 import {
 	checkGame,
 	getSquareIndexBit,
+	isPizzaTurn,
 	makeLegalBoard,
 } from "@components/othello/utils";
 
@@ -19,10 +20,9 @@ const GameBoard = () => {
 	console.log("finish:", finish);
 	const renderSquare = () => {
 		const squares = [];
-		// const legalBoard = isPizzaTurn(turn)
-		// 	? makeLegalBoard(pizzaBoard, hamburgerBoard)
-		// 	: makeLegalBoard(hamburgerBoard, pizzaBoard);
-		const legalBoard = makeLegalBoard(pizzaBoard, hamburgerBoard);
+		const legalBoard = isPizzaTurn(turn)
+			? makeLegalBoard(pizzaBoard, hamburgerBoard)
+			: makeLegalBoard(hamburgerBoard, pizzaBoard);
 		for (let squareIndex = 0n; squareIndex < 64n; squareIndex++) {
 			const squareIndexBit = getSquareIndexBit(squareIndex);
 			const isPizza = (pizzaBoard & squareIndexBit) !== 0n;

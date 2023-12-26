@@ -3,9 +3,12 @@ import {
 	useHamburgerBoardDispatch,
 	usePizzaBoard,
 	usePizzaBoardDispatch,
+	useTurn,
+	useTurnDispatch,
 } from "@components/othello/context/BoardContext";
 import {
 	getSquareIndexBit,
+	isPizzaTurn,
 	makeReversedBoard,
 } from "@components/othello/utils";
 
@@ -22,20 +25,29 @@ const Square = ({
 }) => {
 	const pizzaBoard = usePizzaBoard();
 	const hamburgerBoard = useHamburgerBoard();
+	const turn = useTurn();
 	const pizzaBoardDispatch = usePizzaBoardDispatch();
 	const hamburgerBoardDispatch = useHamburgerBoardDispatch();
+	const turnDispatch = useTurnDispatch();
 	const squareIndexBit = getSquareIndexBit(squareIndex);
+
 	const handleClick = () => {
-		const reversedBoard = makeReversedBoard(
-			pizzaBoard,
-			hamburgerBoard,
-			squareIndexBit,
-		);
+		const reversedBoard = isPizzaTurn(turn)
+			? makeReversedBoard(pizzaBoard, hamburgerBoard, squareIndexBit)
+			: makeReversedBoard(hamburgerBoard, pizzaBoard, squareIndexBit);
 		pizzaBoardDispatch({
 			type: "update",
-			payload: reversedBoard | squareIndexBit,
+			payload: isPizzaTurn(turn)
+				? reversedBoard | squareIndexBit
+				: reversedBoard,
 		});
-		hamburgerBoardDispatch({ type: "update", payload: reversedBoard });
+		hamburgerBoardDispatch({
+			type: "update",
+			payload: isPizzaTurn(turn)
+				? reversedBoard
+				: reversedBoard | squareIndexBit,
+		});
+		turnDispatch("next");
 	};
 	let icon = null;
 	if (isPizza) {
