@@ -1,4 +1,18 @@
-import { createContext, useContext, useReducer, type ReactNode } from "react";
+import {
+	createContext,
+	useContext,
+	useReducer,
+	useState,
+	type Dispatch,
+	type ReactNode,
+	type SetStateAction,
+} from "react";
+
+type BoardDispatchType = Dispatch<{ type: string; payload: bigint }>;
+type TurnDispatchType = Dispatch<string>;
+type RevenueDispatchType = Dispatch<{ type: string; payload: number }>;
+type AssetDispatchType = Dispatch<{ type: string; payload: number }>;
+type SetEventTextType = Dispatch<SetStateAction<string>>;
 
 const initialPizzaBoard =
 	0b00000000_00000000_00000000_00001000_00010000_00000000_00000000_00000000n;
@@ -9,25 +23,39 @@ const initialRevenue = 1000;
 const initialAsset = 10000;
 
 const PizzaBoardContext = createContext(initialPizzaBoard);
-const PizzaBoardDispatchContext = createContext(() => {});
+const PizzaBoardDispatchContext = createContext<BoardDispatchType>(() => {});
 
 const HamburgerBoardContext = createContext(initialHamburgerBoard);
-const HamburgerBoardDispatchContext = createContext(() => {});
+const HamburgerBoardDispatchContext = createContext<BoardDispatchType>(
+	() => {},
+);
 
 const TurnContext = createContext(0);
-const TurnDispatchContext = createContext(() => {});
+const TurnDispatchContext = createContext<TurnDispatchType>(() => {});
 
 const PizzaRevenueContext = createContext(initialRevenue);
-const PizzaRevenueDispatchContext = createContext(() => {});
+const PizzaRevenueDispatchContext = createContext<RevenueDispatchType>(
+	() => {},
+);
 
 const HamburgerRevenueContext = createContext(initialRevenue);
-const HamburgerRevenueDispatchContext = createContext(() => {});
+const HamburgerRevenueDispatchContext = createContext<RevenueDispatchType>(
+	() => {},
+);
 
 const PizzaAssetContext = createContext(initialAsset);
-const PizzaAssetDispatchContext = createContext(() => {});
+const PizzaAssetDispatchContext = createContext<AssetDispatchType>(() => {});
 
 const HamburgerAssetContext = createContext(initialAsset);
-const HamburgerAssetDispatchContext = createContext(() => {});
+const HamburgerAssetDispatchContext = createContext<AssetDispatchType>(
+	() => {},
+);
+
+const EventTextContext = createContext("");
+const SetEventTextContext = createContext<SetEventTextType>(() => {});
+
+const ExpectedEventTextContext = createContext("");
+const SetExpectedEventTextContext = createContext<SetEventTextType>(() => {});
 
 const BoardProvider = ({ children }: { children: ReactNode }) => {
 	const [pizzaBoard, pizzaBoardDispatch] = useReducer(
@@ -118,6 +146,9 @@ const BoardProvider = ({ children }: { children: ReactNode }) => {
 		},
 		initialAsset,
 	);
+
+	const [eventText, setEventText] = useState("");
+	const [expectedEventText, setExpectedEventText] = useState("");
 	return (
 		<PizzaBoardContext.Provider value={pizzaBoard}>
 			<PizzaBoardDispatchContext.Provider value={pizzaBoardDispatch}>
@@ -145,7 +176,21 @@ const BoardProvider = ({ children }: { children: ReactNode }) => {
 															<HamburgerAssetDispatchContext.Provider
 																value={hamburgerAssetDispatch}
 															>
-																{children}
+																<EventTextContext.Provider value={eventText}>
+																	<SetEventTextContext.Provider
+																		value={setEventText}
+																	>
+																		<ExpectedEventTextContext.Provider
+																			value={expectedEventText}
+																		>
+																			<SetExpectedEventTextContext.Provider
+																				value={setExpectedEventText}
+																			>
+																				{children}
+																			</SetExpectedEventTextContext.Provider>
+																		</ExpectedEventTextContext.Provider>
+																	</SetEventTextContext.Provider>
+																</EventTextContext.Provider>
 															</HamburgerAssetDispatchContext.Provider>
 														</HamburgerAssetContext.Provider>
 													</PizzaAssetDispatchContext.Provider>
@@ -187,8 +232,16 @@ const useHamburgerAsset = () => useContext(HamburgerAssetContext);
 const useHamburgerAssetDispatch = () =>
 	useContext(HamburgerAssetDispatchContext);
 
+const useEventText = () => useContext(EventTextContext);
+const useSetEventText = () => useContext(SetEventTextContext);
+
+const useExpectedEventText = () => useContext(ExpectedEventTextContext);
+const useSetExpectedEventText = () => useContext(SetExpectedEventTextContext);
+
 export {
 	BoardProvider,
+	useEventText,
+	useExpectedEventText,
 	useHamburgerAsset,
 	useHamburgerAssetDispatch,
 	useHamburgerBoard,
@@ -201,6 +254,8 @@ export {
 	usePizzaBoardDispatch,
 	usePizzaRevenue,
 	usePizzaRevenueDispatch,
+	useSetEventText,
+	useSetExpectedEventText,
 	useTurn,
 	useTurnDispatch,
 };

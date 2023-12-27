@@ -1,8 +1,14 @@
 import {
+	useHamburgerAssetDispatch,
 	useHamburgerBoard,
 	useHamburgerBoardDispatch,
+	useHamburgerRevenueDispatch,
+	usePizzaAssetDispatch,
 	usePizzaBoard,
 	usePizzaBoardDispatch,
+	usePizzaRevenueDispatch,
+	useSetEventText,
+	useSetExpectedEventText,
 	useTurn,
 	useTurnDispatch,
 } from "@components/othello/context/BoardContext";
@@ -13,24 +19,37 @@ import {
 } from "@components/othello/utils";
 
 import { HamburgerIcon, LegalIcon, PizzaIcon } from "@components/othello/Icons";
+import { type Event } from "@components/othello/eventList.ts";
 
 const Square = ({
 	isPizza,
 	isHamburger,
 	isLegal,
 	squareIndex,
+	event,
 }: {
 	isPizza: boolean;
 	isHamburger: boolean;
 	isLegal: boolean;
 	squareIndex: bigint;
+	event: Event | null;
 }) => {
 	const pizzaBoard = usePizzaBoard();
-	const hamburgerBoard = useHamburgerBoard();
-	const turn = useTurn();
 	const pizzaBoardDispatch = usePizzaBoardDispatch();
+	const pizzaRevenueDispatch = usePizzaRevenueDispatch();
+	const pizzaAssetDispatch = usePizzaAssetDispatch();
+
+	const hamburgerBoard = useHamburgerBoard();
 	const hamburgerBoardDispatch = useHamburgerBoardDispatch();
+	const hamburgerRevenueDispatch = useHamburgerRevenueDispatch();
+	const hamburgerAssetDispatch = useHamburgerAssetDispatch();
+
+	const turn = useTurn();
 	const turnDispatch = useTurnDispatch();
+
+	const setEventText = useSetEventText();
+	const setExpectedEventText = useSetExpectedEventText();
+
 	const squareIndexBit = getSquareIndexBit(squareIndex);
 
 	const handleClick = () => {
@@ -49,8 +68,35 @@ const Square = ({
 				? reversedBoard
 				: reversedBoard | squareIndexBit,
 		});
+
+		if (event === null) throw new Error("legal square has no event");
+
+		setEventText(event.text); // TODO: いい感じにフォーマットする
+		if (isPizzaTurn(turn)) {
+			pizzaRevenueDispatch({ type: "update", payload: event.revenueChange });
+			pizzaAssetDispatch({ type: "update", payload: event.assetChange });
+		} else {
+			hamburgerRevenueDispatch({
+				type: "update",
+				payload: event.revenueChange,
+			});
+			hamburgerAssetDispatch({ type: "update", payload: event.assetChange });
+		}
+
 		turnDispatch("next");
 	};
+
+	const handleHover = () => {
+		if (event === null) throw new Error("legal square has no event");
+		if (event.revenueChange > 0) {
+			setExpectedEventText("得しそうな予感がします");
+		} else if (event.revenueChange < 0) {
+			setExpectedEventText("損しそうな予感がします");
+		} else {
+			setExpectedEventText("何が起こるかわかりません");
+		}
+	};
+
 	let icon = null;
 	if (isPizza) {
 		icon = <PizzaIcon fontSize={"text-xl"} />;
@@ -66,6 +112,8 @@ const Square = ({
 			className="aspect-square border-2 border-indigo-600 flex items-center justify-center"
 			onClick={isLegal ? handleClick : () => {}}
 			onKeyDown={isLegal ? handleClick : () => {}}
+			onMouseOver={isLegal ? handleHover : () => {}}
+			onFocus={isLegal ? handleHover : () => {}}
 		>
 			{icon}
 		</div>
