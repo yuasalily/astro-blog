@@ -3,6 +3,7 @@ import {
 	useHamburgerBoard,
 	usePizzaBoard,
 	useTurn,
+	useTurnDispatch,
 } from "@components/othello/context/BoardContext";
 import { getEvent } from "@components/othello/eventList";
 import {
@@ -10,15 +11,28 @@ import {
 	getSquareIndexBit,
 	isPizzaTurn,
 	makeLegalBoard,
+	popCount,
 } from "@components/othello/utils";
 
 const GameBoard = () => {
 	const pizzaBoard = usePizzaBoard();
 	const hamburgerBoard = useHamburgerBoard();
 	const turn = useTurn();
+	const turnDispatch = useTurnDispatch();
 
-	const finish = checkGame(pizzaBoard, hamburgerBoard);
-	console.log("finish:", finish);
+	const legalBoard = isPizzaTurn(turn)
+		? makeLegalBoard(pizzaBoard, hamburgerBoard)
+		: makeLegalBoard(hamburgerBoard, pizzaBoard);
+
+	if (popCount(legalBoard) === 0) {
+		if (checkGame(pizzaBoard, hamburgerBoard)) {
+			alert("ゲームが終了しました");
+		} else {
+			alert("置ける場所がないためパスします");
+			turnDispatch("next");
+		}
+	}
+
 	const renderSquare = () => {
 		const squares = [];
 		const legalBoard = isPizzaTurn(turn)
