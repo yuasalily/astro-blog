@@ -9,7 +9,7 @@ const OthelloGame = () => {
 	return (
 		<>
 			<BoardProvider>
-				<div className="flex justify-center w-3/4">
+				<div className="flex justify-center w-3/4 space-x-3">
 					<div>
 						<div className="p-2">
 							<GameBoard />
@@ -22,7 +22,7 @@ const OthelloGame = () => {
 						<ScoreBoard />
 						<GameController />
 					</div>
-					<div>
+					<div className="border-l-2 border-gray-800">
 						<HowToPlayBoard />
 					</div>
 				</div>
