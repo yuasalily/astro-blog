@@ -22,9 +22,9 @@ const OthelloGame = () => {
 						<ScoreBoard />
 						<GameController />
 					</div>
-				</div>
-				<div>
-					<HowToPlayBoard />
+					<div>
+						<HowToPlayBoard />
+					</div>
 				</div>
 			</BoardProvider>
 		</>

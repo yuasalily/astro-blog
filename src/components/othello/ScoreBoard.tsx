@@ -59,7 +59,7 @@ const ScoreBoard = () => {
 	}
 
 	return (
-		<>
+		<div className="flex flex-col space-y-2">
 			<GameInformation
 				pizzaIcon={pizzaIcon}
 				hamburgerIcon={hamburgerIcon}
@@ -82,7 +82,7 @@ const ScoreBoard = () => {
 				revenue={hamburgerRevenue}
 				asset={hamburgerAsset}
 			/>
-		</>
+		</div>
 	);
 };
 

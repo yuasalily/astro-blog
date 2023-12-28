@@ -2,7 +2,11 @@
 type Event = { text: string; revenueChange: number; assetChange: number };
 
 const EventList: Event[] = [
-	{ text: "ライバル店ができました。", revenueChange: -10, assetChange: 0 },
+	{
+		text: "ライバル店ができました。もっと長いイベントだとどうなるの。文字が改行されたりするのかしら。もっと早く試しておけばよかった",
+		revenueChange: -10,
+		assetChange: 0,
+	},
 	{ text: "ライバル店がつぶれました。", revenueChange: 10, assetChange: 0 },
 ];
 

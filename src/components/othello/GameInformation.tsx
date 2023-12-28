@@ -17,8 +17,8 @@ const GameInformation = ({
 }) => {
 	return (
 		<>
-			<p>{playerInformation}</p>
-			<p>
+			<p className="text-xl">{playerInformation}</p>
+			<p className="text-lg">
 				{pizzaIcon}:{pizzaScore} vs {hamburgerIcon}:{hamburgerScore}
 			</p>
 		</>

@@ -96,10 +96,10 @@ const EventBoard = () => {
 	return (
 		<div className="flex flex-col space-y-2">
 			<div className="h-16 w-96 border-2 border-gray-800">
-				{formatExpectedEvent(expectedEvent)}
+				<div className="px-2">{formatExpectedEvent(expectedEvent)}</div>
 			</div>
 			<div className="h-36 w-96 border-2 border-gray-800">
-				{formatEvent(event)}
+				<div className="px-2">{formatEvent(event)}</div>
 			</div>
 		</div>
 	);
