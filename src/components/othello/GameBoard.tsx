@@ -24,13 +24,9 @@ const GameBoard = () => {
 		? makeLegalBoard(pizzaBoard, hamburgerBoard)
 		: makeLegalBoard(hamburgerBoard, pizzaBoard);
 
-	if (popCount(legalBoard) === 0) {
-		if (checkGame(pizzaBoard, hamburgerBoard)) {
-			alert("ゲームが終了しました");
-		} else {
-			alert("置ける場所がないためパスします");
-			turnDispatch("next");
-		}
+	if (popCount(legalBoard) === 0 && !checkGame(pizzaBoard, hamburgerBoard)) {
+		alert("置ける場所がないためパスします");
+		turnDispatch("next");
 	}
 
 	const renderSquare = () => {

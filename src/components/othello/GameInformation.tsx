@@ -6,19 +6,18 @@ const GameInformation = ({
 	pizzaScore,
 	hamburgerScore,
 	pizzaIsNext,
+	playerInformation,
 }: {
 	pizzaIcon: ReactNode;
 	hamburgerIcon: ReactNode;
 	pizzaScore: number;
 	hamburgerScore: number;
 	pizzaIsNext: boolean;
+	playerInformation: ReactNode;
 }) => {
 	return (
 		<>
-			<p>
-				次のプレイヤー:
-				{pizzaIsNext ? pizzaIcon : hamburgerIcon}
-			</p>
+			<p>{playerInformation}</p>
 			<p>
 				{pizzaIcon}:{pizzaScore} vs {hamburgerIcon}:{hamburgerScore}
 			</p>

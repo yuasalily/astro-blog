@@ -12,11 +12,15 @@ import {
 } from "@components/othello/context/BoardContext";
 import {
 	calculateScore,
+	checkGame,
 	isPizzaTurn,
 	popCount,
 } from "@components/othello/utils";
 
 const ScoreBoard = () => {
+	const pizzaIcon = <PizzaIcon fontSize="text-base" />;
+	const hamburgerIcon = <HamburgerIcon fontSize="text-base" />;
+
 	const pizzaBoard = usePizzaBoard();
 	const hamburgerBoard = useHamburgerBoard();
 	const turn = useTurn();
@@ -30,29 +34,50 @@ const ScoreBoard = () => {
 	const hamburgerRevenue = useHamburgerRevenue();
 	const hamburgerAsset = useHamburgerAsset();
 
+	const pizzaScore = calculateScore(numPizza, pizzaRevenue, pizzaAsset);
+	const hamburgerScore = calculateScore(
+		numHamburger,
+		hamburgerRevenue,
+		hamburgerAsset,
+	);
+
+	const finished = checkGame(pizzaBoard, hamburgerBoard);
+	let playerInformation = null;
+	if (finished) {
+		alert("ゲームが終了しました。");
+		if (pizzaScore === hamburgerScore) {
+			playerInformation = "引き分けです";
+		} else if (pizzaScore > hamburgerScore) {
+			playerInformation = <>{pizzaIcon}の勝ちです</>;
+		} else {
+			playerInformation = <>{hamburgerIcon}の勝ちです</>;
+		}
+	} else {
+		playerInformation = (
+			<>次のプレイヤー:{pizzaIsNext ? pizzaIcon : hamburgerIcon}</>
+		);
+	}
+
 	return (
 		<>
 			<GameInformation
-				pizzaIcon={<PizzaIcon fontSize="text-base" />}
-				hamburgerIcon={<HamburgerIcon fontSize="text-base" />}
-				pizzaScore={calculateScore(numPizza, pizzaRevenue, pizzaAsset)}
-				hamburgerScore={calculateScore(
-					numHamburger,
-					hamburgerRevenue,
-					hamburgerAsset,
-				)}
+				pizzaIcon={pizzaIcon}
+				hamburgerIcon={hamburgerIcon}
+				pizzaScore={pizzaScore}
+				hamburgerScore={hamburgerScore}
 				pizzaIsNext={pizzaIsNext}
+				playerInformation={playerInformation}
 			/>
 
 			<ScoreInformation
-				icon={<PizzaIcon fontSize="text-base" />}
+				icon={pizzaIcon}
 				numStore={numPizza}
 				revenue={pizzaRevenue}
 				asset={pizzaAsset}
 			/>
 
 			<ScoreInformation
-				icon={<HamburgerIcon fontSize="text-base" />}
+				icon={hamburgerIcon}
 				numStore={numHamburger}
 				revenue={hamburgerRevenue}
 				asset={hamburgerAsset}
