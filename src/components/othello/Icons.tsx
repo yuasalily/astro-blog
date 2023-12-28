@@ -13,4 +13,9 @@ const LegalIcon = ({ fontSize }: { fontSize: string }) => {
 	return <i className={className} />;
 };
 
-export { HamburgerIcon, LegalIcon, PizzaIcon };
+const ManagerIcon = ({ fontSize }: { fontSize: string }) => {
+	const className = `fa-solid fa-user-tie ${fontSize}`;
+	return <i className={className} />;
+};
+
+export { HamburgerIcon, LegalIcon, ManagerIcon, PizzaIcon };

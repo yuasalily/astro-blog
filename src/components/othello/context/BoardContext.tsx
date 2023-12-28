@@ -8,11 +8,13 @@ import {
 	type SetStateAction,
 } from "react";
 
+import { type Event } from "@components/othello/eventList";
+
 type BoardDispatchType = Dispatch<{ type: string; payload: bigint }>;
 type TurnDispatchType = Dispatch<string>;
 type RevenueDispatchType = Dispatch<{ type: string; payload: number }>;
 type AssetDispatchType = Dispatch<{ type: string; payload: number }>;
-type SetEventTextType = Dispatch<SetStateAction<string>>;
+type SetEventTextType = Dispatch<SetStateAction<Event>>;
 
 const initialPizzaBoard =
 	0b00000000_00000000_00000000_00001000_00010000_00000000_00000000_00000000n;
@@ -51,10 +53,18 @@ const HamburgerAssetDispatchContext = createContext<AssetDispatchType>(
 	() => {},
 );
 
-const EventTextContext = createContext("");
+const EventTextContext = createContext({
+	text: "",
+	revenueChange: 0,
+	assetChange: 0,
+});
 const SetEventTextContext = createContext<SetEventTextType>(() => {});
 
-const ExpectedEventTextContext = createContext("");
+const ExpectedEventTextContext = createContext({
+	text: "",
+	revenueChange: 0,
+	assetChange: 0,
+});
 const SetExpectedEventTextContext = createContext<SetEventTextType>(() => {});
 
 const BoardProvider = ({ children }: { children: ReactNode }) => {
@@ -147,8 +157,16 @@ const BoardProvider = ({ children }: { children: ReactNode }) => {
 		initialAsset,
 	);
 
-	const [eventText, setEventText] = useState("");
-	const [expectedEventText, setExpectedEventText] = useState("");
+	const [eventText, setEventText] = useState({
+		text: "",
+		revenueChange: 0,
+		assetChange: 0,
+	});
+	const [expectedEventText, setExpectedEventText] = useState({
+		text: "",
+		revenueChange: 0,
+		assetChange: 0,
+	});
 	return (
 		<PizzaBoardContext.Provider value={pizzaBoard}>
 			<PizzaBoardDispatchContext.Provider value={pizzaBoardDispatch}>

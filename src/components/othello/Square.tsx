@@ -71,7 +71,7 @@ const Square = ({
 
 		if (event === null) throw new Error("legal square has no event");
 
-		setEventText(event.text); // TODO: いい感じにフォーマットする
+		setEventText(event);
 		if (isPizzaTurn(turn)) {
 			pizzaRevenueDispatch({ type: "update", payload: event.revenueChange });
 			pizzaAssetDispatch({ type: "update", payload: event.assetChange });
@@ -88,13 +88,11 @@ const Square = ({
 
 	const handleHover = () => {
 		if (event === null) throw new Error("legal square has no event");
-		if (event.revenueChange > 0) {
-			setExpectedEventText("得しそうな予感がします");
-		} else if (event.revenueChange < 0) {
-			setExpectedEventText("損しそうな予感がします");
-		} else {
-			setExpectedEventText("何が起こるかわかりません");
-		}
+		setExpectedEventText(event);
+	};
+
+	const handleHoverLeave = () => {
+		setExpectedEventText({ text: "", revenueChange: 0, assetChange: 0 });
 	};
 
 	let icon = null;
@@ -114,6 +112,8 @@ const Square = ({
 			onKeyDown={isLegal ? handleClick : () => {}}
 			onMouseOver={isLegal ? handleHover : () => {}}
 			onFocus={isLegal ? handleHover : () => {}}
+			onMouseOut={isLegal ? handleHoverLeave : () => {}}
+			onBlur={isLegal ? handleHoverLeave : () => {}}
 		>
 			{icon}
 		</div>

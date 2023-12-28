@@ -35,8 +35,8 @@ const GameController = () => {
 
 		turnDispatch("initialize");
 
-		setEventText("");
-		setExpectedEventText("");
+		setEventText({ text: "", revenueChange: 0, assetChange: 0 });
+		setExpectedEventText({ text: "", revenueChange: 0, assetChange: 0 });
 	};
 	return (
 		<button type="button" onClick={handleResetClick}>
