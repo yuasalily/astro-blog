@@ -3,6 +3,7 @@ import {
 	useHamburgerBoard,
 	useHamburgerBoardDispatch,
 	useHamburgerRevenueDispatch,
+	useMatchSetting,
 	usePizzaAssetDispatch,
 	usePizzaBoard,
 	usePizzaBoardDispatch,
@@ -27,12 +28,14 @@ const Square = ({
 	isLegal,
 	squareIndex,
 	event,
+	isCpuPut,
 }: {
 	isPizza: boolean;
 	isHamburger: boolean;
 	isLegal: boolean;
 	squareIndex: bigint;
 	event: Event | null;
+	isCpuPut: boolean;
 }) => {
 	const pizzaBoard = usePizzaBoard();
 	const pizzaBoardDispatch = usePizzaBoardDispatch();
@@ -49,6 +52,8 @@ const Square = ({
 
 	const setEventText = useSetEventText();
 	const setExpectedEventText = useSetExpectedEventText();
+
+	const matchSetting = useMatchSetting();
 
 	const squareIndexBit = getSquareIndexBit(squareIndex);
 
@@ -85,6 +90,10 @@ const Square = ({
 
 		turnDispatch("next");
 	};
+
+	if (matchSetting > 0 && !isPizzaTurn(turn) && isCpuPut) {
+		handleClick();
+	}
 
 	const handleHover = () => {
 		if (event === null) throw new Error("legal square has no event");

@@ -15,6 +15,7 @@ type TurnDispatchType = Dispatch<string>;
 type RevenueDispatchType = Dispatch<{ type: string; payload: number }>;
 type AssetDispatchType = Dispatch<{ type: string; payload: number }>;
 type SetEventTextType = Dispatch<SetStateAction<Event>>;
+type SetMatchSettingType = Dispatch<SetStateAction<number>>;
 
 const initialPizzaBoard =
 	0b00000000_00000000_00000000_00001000_00010000_00000000_00000000_00000000n;
@@ -66,6 +67,9 @@ const ExpectedEventTextContext = createContext({
 	assetChange: 0,
 });
 const SetExpectedEventTextContext = createContext<SetEventTextType>(() => {});
+
+const MatchSetting = createContext(0);
+const SetMatchSetting = createContext<SetMatchSettingType>(() => {});
 
 const BoardProvider = ({ children }: { children: ReactNode }) => {
 	const [pizzaBoard, pizzaBoardDispatch] = useReducer(
@@ -167,6 +171,8 @@ const BoardProvider = ({ children }: { children: ReactNode }) => {
 		revenueChange: 0,
 		assetChange: 0,
 	});
+
+	const [matchSetting, setMatchSetting] = useState(0);
 	return (
 		<PizzaBoardContext.Provider value={pizzaBoard}>
 			<PizzaBoardDispatchContext.Provider value={pizzaBoardDispatch}>
@@ -204,7 +210,15 @@ const BoardProvider = ({ children }: { children: ReactNode }) => {
 																			<SetExpectedEventTextContext.Provider
 																				value={setExpectedEventText}
 																			>
-																				{children}
+																				<MatchSetting.Provider
+																					value={matchSetting}
+																				>
+																					<SetMatchSetting.Provider
+																						value={setMatchSetting}
+																					>
+																						{children}
+																					</SetMatchSetting.Provider>
+																				</MatchSetting.Provider>
 																			</SetExpectedEventTextContext.Provider>
 																		</ExpectedEventTextContext.Provider>
 																	</SetEventTextContext.Provider>
@@ -256,6 +270,9 @@ const useSetEventText = () => useContext(SetEventTextContext);
 const useExpectedEventText = () => useContext(ExpectedEventTextContext);
 const useSetExpectedEventText = () => useContext(SetExpectedEventTextContext);
 
+const useMatchSetting = () => useContext(MatchSetting);
+const useSetMatchSetting = () => useContext(SetMatchSetting);
+
 export {
 	BoardProvider,
 	useEventText,
@@ -266,6 +283,7 @@ export {
 	useHamburgerBoardDispatch,
 	useHamburgerRevenue,
 	useHamburgerRevenueDispatch,
+	useMatchSetting,
 	usePizzaAsset,
 	usePizzaAssetDispatch,
 	usePizzaBoard,
@@ -274,6 +292,7 @@ export {
 	usePizzaRevenueDispatch,
 	useSetEventText,
 	useSetExpectedEventText,
+	useSetMatchSetting,
 	useTurn,
 	useTurnDispatch,
 };
