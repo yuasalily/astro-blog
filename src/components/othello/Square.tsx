@@ -107,7 +107,7 @@ const Square = ({
 	}
 	return (
 		<div
-			className="aspect-square border-2 border-indigo-600 flex items-center justify-center"
+			className="aspect-square border-2 border-indigo-900 flex items-center justify-center"
 			onClick={isLegal ? handleClick : () => {}}
 			onKeyDown={isLegal ? handleClick : () => {}}
 			onMouseOver={isLegal ? handleHover : () => {}}

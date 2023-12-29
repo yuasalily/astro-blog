@@ -4,7 +4,7 @@ const PizzaIcon = ({ fontSize }: { fontSize: string }) => {
 };
 
 const HamburgerIcon = ({ fontSize }: { fontSize: string }) => {
-	const className = `fa-solid fa-burger text-red-900 ${fontSize}`;
+	const className = `fa-solid fa-burger text-green-900 ${fontSize}`;
 	return <i className={className} />;
 };
 

@@ -57,7 +57,7 @@ const GameBoard = () => {
 		return squares;
 	};
 	return (
-		<div className="grid grid-cols-8 w-96 bg-green-200 border-4 border-indigo-600">
+		<div className="grid grid-cols-8 w-96 bg-green-100 border-4 border-amber-950">
 			{renderSquare()}
 		</div>
 	);
