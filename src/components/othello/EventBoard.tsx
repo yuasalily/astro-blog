@@ -98,7 +98,7 @@ const EventBoard = () => {
 			<div className="h-16 w-96 border-2 border-gray-800">
 				<div className="px-2">{formatExpectedEvent(expectedEvent)}</div>
 			</div>
-			<div className="h-36 w-96 border-2 border-gray-800">
+			<div className="h-56 w-96 border-2 border-gray-800">
 				<div className="px-2">{formatEvent(event)}</div>
 			</div>
 		</div>

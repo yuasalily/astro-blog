@@ -7,7 +7,7 @@ import { BoardProvider } from "@components/othello/context/BoardContext";
 
 const OthelloGame = () => {
 	return (
-		<>
+		<div className="pb-12">
 			<BoardProvider>
 				<div className="flex justify-center w-3/4 space-x-3">
 					<div>
@@ -27,7 +27,7 @@ const OthelloGame = () => {
 					</div>
 				</div>
 			</BoardProvider>
-		</>
+		</div>
 	);
 };
 
