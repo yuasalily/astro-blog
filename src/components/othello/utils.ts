@@ -134,12 +134,21 @@ const isPizzaTurn = (turn: number): boolean => {
 const calculateScore = (numStore: number, revenue: number, asset: number) =>
 	numStore * revenue + asset;
 
+// 人工無能。AIが用意出来たら置き換えていく。
+const getCpuPut = (legalBoard: bigint): bigint | null => {
+	for (let i = 0n; i < 64n; i++) {
+		if (legalBoard >> i === 1n) return i;
+	}
+	return null;
+};
+
 export {
+	calculateScore,
 	checkGame,
+	getCpuPut,
 	getSquareIndexBit,
 	isPizzaTurn,
 	makeLegalBoard,
 	makeReversedBoard,
 	popCount,
-	calculateScore,
 };

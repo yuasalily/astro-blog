@@ -1,6 +1,7 @@
 import Square from "@components/othello/Square";
 import {
 	useHamburgerBoard,
+	useMatchSetting,
 	usePizzaBoard,
 	useTurn,
 	useTurnDispatch,
@@ -8,6 +9,7 @@ import {
 import { getEvent } from "@components/othello/eventList";
 import {
 	checkGame,
+	getCpuPut,
 	getSquareIndexBit,
 	isPizzaTurn,
 	makeLegalBoard,
@@ -19,6 +21,7 @@ const GameBoard = () => {
 	const hamburgerBoard = useHamburgerBoard();
 	const turn = useTurn();
 	const turnDispatch = useTurnDispatch();
+	const matchSetting = useMatchSetting();
 
 	const legalBoard = isPizzaTurn(turn)
 		? makeLegalBoard(pizzaBoard, hamburgerBoard)
@@ -34,6 +37,7 @@ const GameBoard = () => {
 		const legalBoard = isPizzaTurn(turn)
 			? makeLegalBoard(pizzaBoard, hamburgerBoard)
 			: makeLegalBoard(hamburgerBoard, pizzaBoard);
+		const cpuPut = matchSetting > 0 ? getCpuPut(legalBoard) : null;
 
 		for (let squareIndex = 0n; squareIndex < 64n; squareIndex++) {
 			const squareIndexBit = getSquareIndexBit(squareIndex);
@@ -41,6 +45,7 @@ const GameBoard = () => {
 			const isHamburger = (hamburgerBoard & squareIndexBit) !== 0n;
 			const isLegal = (legalBoard & squareIndexBit) !== 0n;
 			const event = isLegal ? getEvent() : null;
+			const isCpuPut = cpuPut === squareIndex;
 
 			squares.push(
 				<Square
@@ -50,6 +55,7 @@ const GameBoard = () => {
 					squareIndex={squareIndex}
 					key={squareIndex}
 					event={event}
+					isCpuPut={isCpuPut}
 				/>,
 			);
 		}
