@@ -1,5 +1,9 @@
 ---
+import OthelloGame from "@components/othello/OthelloGame";
 import GlobalLayout from "@layouts/GlobalLayout.astro";
 ---
 
-<GlobalLayout title="ゲーム">オセロ作成予定地</GlobalLayout>
+<GlobalLayout title="ゲーム">
+  <h2 class="text-3xl bg-gray-300 p-2">味の争い</h2>
+  <OthelloGame client:load />
+</GlobalLayout>
