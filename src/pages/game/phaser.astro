@@ -1,0 +1,9 @@
+---
+import PhaserGame from "@components/phaser/Phaser";
+import GlobalLayout from "@layouts/GlobalLayout.astro";
+---
+
+<GlobalLayout title="ゲーム">
+  <h2 class="text-3xl bg-gray-300 p-2">テスト</h2>
+  <PhaserGame client:only="react" />
+</GlobalLayout>

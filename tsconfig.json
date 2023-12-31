@@ -11,9 +11,18 @@
       ],
       "@samples/*": [
         "src/samples/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
       ]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react"
-  }
+  },
+  "typeRoots": [
+    "./node_modules/phaser/types"
+  ],
+  "types": [
+    "Phaser"
+  ]
 }
